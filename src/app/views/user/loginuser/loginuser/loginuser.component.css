@@ -1,0 +1,103 @@
+body {
+  background-position: center;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  font-family: 'Noto Sans', sans-serif;
+
+}
+
+.text-center {
+  color: rgb(7, 6, 6);
+  text-transform: uppercase;
+  font-size: 23px;
+  margin: 0 0 50px 0;
+  display: flex;
+  font-family: cursive;
+
+
+}
+
+.box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  padding: 200px 250px;
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between
+}
+
+.box :first-child {
+  align-self: center;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-container label {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+  pointer-events: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.input-container input {
+  border: 0;
+  border-bottom: 1px solid #555;
+  background: transparent;
+  width: 100%;
+  padding: 8px 0 5px 0;
+  font-size: 16px;
+  color: rgb(3, 3, 3);
+}
+
+.input-container input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #e74c3c;
+}
+
+.btn {
+  color: #fff;
+  background-color: #e74c3c;
+  outline: none;
+  border: 0;
+  color: #fff;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.input-container input:focus~label,
+.input-container input:valid~label {
+  top: -12px;
+  font-size: 12px;
+
+}
+
+
+
+.form1 {
+  position: absolute;
+  right: 300px;
+  top:70px;
+
+}
+
+
+
+.registre{
+  cursor: pointer;
+  margin-left: 40%;
+  }

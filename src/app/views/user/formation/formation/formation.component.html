@@ -1,0 +1,186 @@
+<div class="form1">
+  <div class="content">
+
+    <div class="container">
+      <h2 class="mb-5">liste de demande</h2>
+
+      <div class="table-responsive">
+
+        <table class="table custom-table">
+          <thead>
+            <tr>
+              <th scope="col">Titre</th>
+              <th scope="col">Annee</th>
+              <th scope="col">Date </th>
+              <th scope="col">nombre de jours</th>
+              <th scope="col">centre </th>
+              <th scope="col">adress </th>
+              <th scope="col">Reponse</th>
+              <th scope="col">action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row">
+
+
+
+              <tr *ngFor="let item of dataArray;index as i">
+                <td>{{item.titre}}</td>
+                <td>{{item.annee}}</td>
+                <td>{{item.date}}</td>
+                <td>{{item.nbre}}</td>
+                <td>{{item.centre}}</td>
+                <td>{{item.lieu}}</td>
+                <td>{{item.Reponse}}</td>
+                <td>
+                  <button  data-toggle="modal" data-target="#exampleModal"
+                  (click)="getdonne(item.titre,item.annee,item.date,item.nbre,
+                  item.centre,item.lieu,item.id,item.Reponse)" >Update</button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+  </div>
+  </div>
+
+
+
+<!--
+  <div class="form2"  >
+    <div class="login-box">
+      <h2>demande formation</h2>
+      <form>
+        <div class="user-box">
+
+          <input type="text" required name="titre" [(ngModel)]="dataformation.titre" required #nom="ngModel" >
+           <label>titre </label>
+        </div>
+        <div class="user-box">
+          <input type="number"   #annee="ngModel" [(ngModel)]="dataformation.annee" name="annee" min="2017" max="2050" required>
+          <label>Annee</label>
+          <script>
+            document.querySelector("input[type=number]")
+            .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
+          </script>
+        </div>
+        <div class="user-box">
+          <input type="Date"  [(ngModel)]="dataformation.date"  name="date" required  #date="ngModel">
+          <label>date</label>
+        </div>
+        <div class="user-box">
+          <input type="number" [(ngModel)]="dataformation.nbre" name="nbre"  required min="20" max="90"  #nbre="ngModel">
+          <label>nbre</label>
+        </div>
+        <div class="user-box">
+          <input type="text" [(ngModel)]="dataformation.centre" name="centre" required  #centre="ngModel">
+
+          <label>centre</label>
+
+          </div>
+          <div class="user-box">
+            <input type="text" [(ngModel)]="dataformation.lieu" name="lieu" required ngModel #lieu="ngModel">
+            <label>Adress</label>
+          </div>
+
+          <div class="alert alert-success" *ngIf="messageSuccess">
+            {{messageSuccess}}
+          </div>
+
+          <button  class="input-container"> Registre </button>
+          <button   class="input-container"> annuler </button>
+
+
+      </form>
+    </div>
+  </div>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form class="form1" #form="ngForm" (ngSubmit)="formation(form)">
+
+  <div class="form-group">
+    <div class="input-container">
+      <input type="text" matInput  ngModel #titre="ngModel" name="titre" required>
+
+
+      <label>Titre de la Formation</label>
+
+    </div>
+    <div class="input-container">
+      <input type="number" matInput ngModel #annee="ngModel" name="annee" min="2017" max="2050" required>
+
+
+      <label>Annee</label>
+
+    </div>
+    <div class="input-container">
+      <input type="Date"  matInput ngModel name="date" required  #date="ngModel">
+
+
+      <label>Date</label>
+
+    </div>
+
+
+    <div class="input-container">
+      <input type="number" matInput name="nbre"  required min="20" max="90" ngModel #nbre="ngModel">
+      <label>Nombre de jours</label>
+
+    </div>
+    <div class="input-container">
+      <input type="text" matInput name="centre" required ngModel #centre="ngModel">
+      <label>Centre Formation</label>
+
+    </div>
+    <div class="input-container">
+      <input type="text" matInput name="lieu" required ngModel #lieu="ngModel">
+      <label>Lieu Formation</label>
+
+    </div>
+
+    <div class="alert alert-success" *ngIf="messageSuccess">
+      {{messageSuccess}}
+    </div>
+
+    <button  class="input-container">
+      envoyer
+    </button>
+    <button  class="input-container" >
+      annuler
+    </button>
+
+  </div>
+</form>
+

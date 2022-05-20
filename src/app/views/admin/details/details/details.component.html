@@ -1,0 +1,44 @@
+<ul *ngIf="dataObject">
+  Nom:{{dataObject.nom}}
+<br>
+
+  Prenom: {{dataObject.prenom}}
+  <br>
+  Adress:{{dataObject.adress}}
+  <br>
+  Email:{{dataObject.email}}
+
+
+
+</ul>
+
+<div class="card-body">
+  <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>idSalarie</th>
+                    <th>reponse</th>
+                  
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let item of dataArray;index as i">
+                    <td>{{item.id}}</td>
+                     <td>{{item.idSalarie}}</td>
+                    <td>{{item.Reponse}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<div class="alert alert-danger" *ngIf="messageErr">
+  {{messageErr}}
+</div>

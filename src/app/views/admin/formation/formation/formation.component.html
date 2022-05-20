@@ -1,0 +1,123 @@
+
+
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">All formation</h6>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                      <tr>
+                          <th>Titre_de_la_Formation</th>
+                          <th>Annee</th>
+                          <th>Date</th>
+                          <th>Nombre_de_jours</th>
+                          <th>Centre_Formation</th>
+                          <th>Lieu</th>
+                          <th>idSalarie</th>
+                          <th>reponse</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+
+                  <tbody>
+
+                      <tr *ngFor="let item of dataArray;index as i">
+                          <td>{{item.titre}}</td>
+                          <td>{{item.annee}}</td>
+                          <td>{{item.date}}</td>
+                          <td>{{item.nbre}}</td>
+                          <td>{{item.centre}}</td>
+                          <td>{{item.lieu}}</td>
+                          <td>{{item.idSalarie}}</td>
+                          <td>{{item.Reponse}}</td>
+                          <td>
+                              <button  (click)="getdata(item.titre,item.annee,item.date,item.nbre,item.centre,item.lieu,item.idSalarie,item.Reponse,item._id)" data-toggle="modal" data-target="#exampleModal">reponse</button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reponse a la demande</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="demande(f)">
+              <div class="form-group">
+
+                <label for="exampleFormControlInput1">Titre_de_la_Formation</label>
+                <input type="text" class="form-control" placeholder="Titre_de_la_Formation"  required name="titre"  [(ngModel)]="dataFormation.titre"   #titre="ngModel" ngModel>
+              </div>
+
+
+              <div class="form-group">
+                  <label for="exampleFormControlInput1">Annee</label>
+                  <input type="number" class="form-control" placeholder="Annee"  [(ngModel)]="dataFormation.annee" required name="annee" #annee="ngModel"  >
+                </div>
+
+
+
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Date</label>
+                  <input type="date" class="form-control" placeholder="Date"  [(ngModel)]="dataFormation.date"  required  #date="ngModel"  name="date" ngModel>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Nombre_de_jours</label>
+                  <input type="number" class="form-control" placeholder="Nombre_de_jours" [(ngModel)]="dataFormation.nbre"  required name="nbre" #nbre="ngModel"   ngModel>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Centre_Formation</label>
+                  <input type="text" class="form-control" placeholder="Centre_Formation"  [(ngModel)]="dataFormation.centre"  required  #centre="ngModel"  name="centre" ngModel>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Lieu</label>
+                  <input type="text" class="form-control" placeholder="Lieu" [(ngModel)]="dataFormation.lieu"  required name="lieu" #lieu="ngModel"   ngModel>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Reponse</label>
+                  <input type="text" class="form-control" placeholder="confirme ou refuse" [(ngModel)]="dataFormation.Reponse"   name="Reponse" #Reponse="ngModel" required  ngModel>
+                </div>
+                <div class="alert alert-success" *ngIf="messageSuccess">
+                  {{messageSuccess}}
+              </div>
+
+
+            </form>
+
+
+
+      </div>
+      <button type="submit"  class="btn btn-primary" > Reponse </button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

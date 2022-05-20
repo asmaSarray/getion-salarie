@@ -1,0 +1,166 @@
+
+<div class="form1">
+<div class="content">
+
+  <div class="container">
+    <h2 class="mb-5">liste de demande</h2>
+
+    <div class="table-responsive">
+
+      <table class="table custom-table">
+        <thead>
+          <tr>
+            <th scope="col">nom</th>
+            <th scope="col">prenom</th>
+            <th scope="col">type de conge</th>
+            <th scope="col">Date de debut</th>
+            <th scope="col">Date de fin</th>
+            <th scope="col">duree</th>
+            <th scope="col">Reponse</th>
+            <th scope="col">action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr scope="row">
+
+
+
+            <tr *ngFor="let item of dataArray;index as i">
+              <td>{{item.nom}}</td>
+              <td>{{item.prenom}}</td>
+              <td>{{item.type}}</td>
+              <td>{{item.du}}</td>
+              <td>{{item.au}}</td>
+              <td>{{item.duree}}</td>
+              <td>{{item.Reponse}}</td>
+              <td>
+                <button  data-toggle="modal" data-target="#exampleModal"
+                (click)="getdonne(item.nom,item.prenom,item.type,item.du,
+                item.au,item.duree,item.id,item.Reponse)" >Update</button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</div>
+</div>
+
+
+
+
+<div class="form2" >
+  <div class="login-box">
+    <h2>demande conge</h2>
+    <form>
+      <div class="user-box">
+        <label>Nom</label>
+        <input type="text"  ngModel #nom="ngModel" name="nom" required>
+
+      </div>
+      <div class="user-box">
+        <input type="text"  ngModel #prenom="ngModel" name="prenom" required>
+        <label>Prenom</label>
+      </div>
+      <div class="user-box">
+        <input type="date"   ngModel name="du" #du="ngModel" required>
+        <label>date de début</label>
+      </div>
+      <div class="user-box">
+        <input type="date"  name="au" ngModel #au="ngModel" required>
+        <label>date de fin</label>
+      </div>
+      <div class="user-box">
+          <input  type="text" ngModel name="type" #type="ngModel" required>
+
+        <label>Type de conge</label>
+
+        </div>
+        <div class="user-box">
+          <input type="number" name="duree" ngModel #duree="ngModel" required>
+          <label>duree</label>
+        </div>
+
+        <div class="alert alert-success" *ngIf="messageSuccess">
+          {{messageSuccess}}
+        </div>
+
+        <button type="submit" class="input-container">
+          Registre
+        </button>
+        <button  class="submit" (click)="delete()">
+          annuler
+        </button>
+
+
+    </form>
+  </div>
+</div>
+
+<!--
+  <div class="box">
+<form class="form2" #form="ngForm" (ngSubmit)="conge(form)">
+
+  <div class="form-group">
+    <div class="input-container">
+      <input type="text" matInput input ngModel #nom="ngModel" name="nom" required>
+
+
+      <label>Nom</label>
+
+    </div>
+    <div class="input-container">
+      <input type="text" matInput ngModel #prenom="ngModel" name="prenom" required>
+
+
+      <label>Prenom</label>
+
+    </div>
+    <div>
+    <label>Type de conge</label>
+      <select id="type" name="type" ngModel name="tupe" #type="ngModel">
+        <option value="paye"> Congés payés</option>
+        <option value="sans_solde"> Congés sans solde</option>
+        <option value="recuperation"> Récupération</option>
+        <option value="maladie">Congés maladie</option>
+      </select>
+
+    </div>
+
+
+    <div class="input-container">
+      <input type="date"  matInput ngModel name="du" #du="ngModel">
+
+
+      <label>Du</label>
+
+    </div>
+    <div class="input-container">
+      <input type="date" matInput  name="au"
+         ngModel #au="ngModel">
+      <label>Au</label>
+    </div>
+
+    <div class="input-container">
+      <input type="date" matInput name="date"  ngModel #date="ngModel">
+      <label>Date de la demande</label>
+
+    </div>
+    <div class="alert alert-success" *ngIf="messageSuccess">
+      {{messageSuccess}}
+    </div>
+
+    <button type="submit" class="input-container">
+      Registre
+    </button>
+    <button  class="input-container" (click)="delete()">
+      annuler
+    </button>
+  </div>
+</form>
+
+  </div>
+-->

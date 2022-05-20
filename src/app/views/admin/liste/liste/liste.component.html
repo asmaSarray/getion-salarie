@@ -1,0 +1,254 @@
+<button class="btn" data-toggle="modal" data-target="#exampleModal1">Ajoute Employe</button>
+<br>
+<br>
+
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">All salarie</h6>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prenom</th>
+              <th>Adress</th>
+              <th>Email</th>
+
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let item of dataArray;index as i">
+              <td>{{item.nom}}</td>
+              <td>{{item.prenom}}</td>
+              <td>{{item.adress}}</td>
+              <td>{{item.email}}</td>
+
+              <td>
+                <button (click)="getdata(item.nom,item.prenom,item.adress,item.email,item._id)" data-toggle="modal"
+                  data-target="#exampleModal">Update</button>
+                <button (click)="details(item._id)">Details</button>
+                <button (click)="delete(item._id,i)">Delete</button>
+              </td>
+            </tr>
+
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Employe</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="updateSalarie(f)">
+          <div class="form-group">
+
+            <label for="exampleFormControlInput1">Nom</label>
+            <input type="text" class="form-control" placeholder="Nom" required name="nom" [(ngModel)]="dataSalarie.nom"
+              required #nom="ngModel" ngModel minlength="2" maxlength="20">
+          </div>
+
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Prenom</label>
+            <input type="text" class="form-control" placeholder="prenom" [(ngModel)]="dataSalarie.prenom" required
+              name="prenom" #prenom="ngModel" required name="prenom" minlength="2" maxlength="20" ngModel>
+          </div>
+
+
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Adress</label>
+            <input type="text" class="form-control" placeholder="adress" [(ngModel)]="dataSalarie.adress" email required
+              #adress="ngModel" required name="adress" ngModel>
+          </div>
+
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Email</label>
+            <input type="email" class="form-control" placeholder="email" [(ngModel)]="dataSalarie.email" email required
+              name="email" #email="ngModel" required ngModel>
+          </div>
+
+          <div class="alert alert-success" *ngIf="messageSuccess">
+            {{messageSuccess}}
+          </div>
+
+          <button type="submit" class="btn btn-primary">Update salarie</button>
+        </form>
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Employe</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="container">
+
+        <form #f="ngForm" (ngSubmit)="add(f)">
+      <!-- firstName validation start here -->
+          <div class="form-group">
+
+            <label for="exampleFormControlInput1">Nom</label>
+            <input type="text" class="form-control" placeholder="nom" required name="nom" #nom="ngModel" ngModel minlength="2" maxlength="20">
+          </div>
+          <div class="alert alert-danger" *ngIf="nom.errors?.required && nom.touched">
+            nom is required
+          </div>
+          <div class="alert alert-danger" *ngIf="nom.errors?.minlength && nom.touched">
+            nom must be minimum 2 caractere
+          </div>
+      <!-- lastName validation end here -->
+
+      <!-- lastName validation start here -->
+          <div class="form-group">
+              <label for="exampleFormControlInput1">Prenom</label>
+              <input type="text" class="form-control" placeholder="prenom" required name="prenom" #prenom="ngModel" minlength="2" maxlength="20" ngModel>
+            </div>
+            <div class="alert alert-danger" *ngIf="prenom.errors?.required && prenom.touched">
+              lastname is required
+            </div>
+            <div class="alert alert-danger" *ngIf="prenom.errors?.minlength && prenom.touched">
+              lastname must be minimum 2 caractere
+            </div>
+      <!-- lastName validation end here -->
+
+      <!-- Email validation start here -->
+
+            <div class="form-group">
+              <label for="exampleFormControlInput1">email</label>
+              <input type="email" class="form-control" placeholder="email" email required name="email" #email="ngModel" ngModel>
+            </div>
+            <div class="alert alert-danger" *ngIf="email.errors?.required && email.touched">
+              email is required
+            </div>
+
+            <div class="alert alert-danger" *ngIf="email.errors?.email && email.touched">
+              the input must be email not string
+            </div>
+      <!-- Email validation end here -->
+
+      <!-- age validation start here -->
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Adress</label>
+              <input type="text" class="form-control" placeholder="adress" required name="adress" #adress="ngModel" ngModel>
+            </div>
+            <div class="alert alert-danger" *ngIf="adress.errors?.required && adress.touched">
+              age is required
+            </div>
+       <!-- age validation end here -->
+
+
+       <!-- Phone validation start here -->
+
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Password</label>
+              <input type="password" class="form-control" placeholder="password" required name="password" #password="ngModel" ngModel>
+            </div>
+            <div class="alert alert-danger" *ngIf="password.errors?.required && password.touched">
+              phone is required
+            </div>
+      <!-- Phone validation end here -->
+            <div class="alert alert-danger" *ngIf="messageError">
+              {{messageError}}
+            </div>
+
+         <button class="btn btn-primary" [disabled]="f.invalid">Add </button>
+        </form>
+
+
+       </div>
+
+      <!--
+      <div class="modal-body">
+        <form class="form2" #f="ngForm" (ngSubmit)="add(f)">
+          <div class="text-center">
+
+          </div>
+          <div class="form-group">
+
+            <label for="exampleFormControlInput1">Nom</label>
+            <input type="text" class="form-control" placeholder="Nom" required name="nom" required
+              #nom="ngModel" ngModel minlength="2" maxlength="20">
+          </div>
+
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Prenom</label>
+            <input type="text" class="form-control" placeholder="prenom" required name="prenom" #prenom="ngModel"
+              required  minlength="2" maxlength="20" ngModel>
+          </div>
+
+
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Adress</label>
+            <input type="text" class="form-control" placeholder="adress"  required #adress="ngModel" required
+              name="adress" ngModel>
+          </div>
+
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Email</label>
+            <input type="email" class="form-control" placeholder="email" email required name="email" #email="ngModel"
+              required ngModel>
+          </div>
+
+
+          <div class="alert alert-success" *ngIf="messageSuccess">
+            {{messageSuccess}}
+          </div>
+
+
+        </form>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn">
+          Ajouter
+        </button>
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>-->
+    </div>
+  </div>
+</div>

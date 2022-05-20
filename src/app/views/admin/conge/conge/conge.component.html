@@ -1,0 +1,215 @@
+
+
+<button class="btn" data-toggle="modal" data-target="#exampleModal1">Ajoute conges</button>
+<br>
+<br>
+<form class="form1">
+  <div class="container-fluid">
+
+    <!-- Page Heading -->
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">conge</h6>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>nom</th>
+                            <th>prenom</th>
+                            <th>type de conge</th>
+                            <th>Du</th>
+                            <th>Au</th>
+                            <th>date de la demande</th>
+                            <th>id</th>
+                            <th>Reponse</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr *ngFor="let item of dataArray;index as i">
+                            <td>{{item.nom}}</td>
+                            <td>{{item.prenom}}</td>
+                            <td>{{item.type}}</td>
+                            <td>{{item.du}}</td>
+                            <td>{{item.au}}</td>
+                            <td>{{item.date}}</td>
+                            <td>{{item.id}}</td>
+                            <td>{{item.Reponse}}</td>
+                            <td>
+                                <button  data-toggle="modal" data-target="#exampleModal"
+                                (click)="getdonne(item.nom,item.prenom,item.type,item.du,item.au,item.date,item.id,item.Reponse)" >Update</button>
+
+                            </td>
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> CONGES
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #f="ngForm" (ngSubmit)="demande(f)">
+                <div class="form-group">
+
+                  <label for="exampleFormControlInput1">nom</label>
+                  <input type="text" class="form-control"   required name="nom"  [(ngModel)]="dataConge.nom" required name="Annee" #nom="ngModel" ngModel >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">prenom</label>
+                    <input type="text" class="form-control"  [(ngModel)]="dataConge.prenom" required name="prenom" #prenom="ngModel" required ngModel>
+
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">type de conge</label>
+                    <input type="text" class="form-control"   [(ngModel)]="dataConge.type"  required  #type="ngModel" required name="type" ngModel>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Du</label>
+                    <input type="Date" class="form-control"   [(ngModel)]="dataConge.du"  required  #du="ngModel" required name="du" ngModel>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Au</label>
+                    <input type="date" class="form-control"  [(ngModel)]="dataConge.au"  required name="au" #au="ngModel" required  ngModel>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Date de demande </label>
+                    <input type="date" class="form-control"  [(ngModel)]="dataConge.date" required name="date_de_la_demande" #date="ngModel" required ngModel>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Reponse</label>
+                    <input type="text" class="form-control" placeholder="confirme ou refuse" [(ngModel)]="dataConge.Reponse"   name="Reponse" #Reponse="ngModel" required  ngModel>
+                  </div>
+
+                  <div class="alert alert-success" *ngIf="messageSuccess">
+                    {{messageSuccess}}
+                  </div>
+              </form>
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" >Reponse</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Formation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form2" >
+
+          <div class="form-group">
+            <div class="input-container">
+              <input type="text" matInput input ngModel #nom="ngModel" name="nom" required>
+
+
+              <label>Nom</label>
+
+            </div>
+            <div class="input-container">
+              <input type="text" matInput ngModel #prenom="ngModel" name="prenom" m required>
+
+
+              <label>Prenom</label>
+
+            </div>
+            <div>
+              <label>Type de conge</label>
+                <select id="type_de_conge" name="type_de_conge" >
+                  <option value="paye"> Congés payés</option>
+                  <option value="sans_solde"> Congés sans solde</option>
+                  <option value="recuperation"> Récupération</option>
+                  <option value="maladie">Congés maladie</option>
+                </select>
+
+              </div>
+            <div class="input-container">
+              <input type="Date"  matInput ngModel name="du" #du="ngModel">
+
+
+              <label>Du</label>
+
+            </div>
+
+
+            <div class="input-container">
+              <input type="date" matInput name="au"   ngModel #au="ngModel">
+              <label>Au</label>
+
+            </div>
+            <div class="input-container">
+              <input type="text" matInput name="date_de_la_demande"  ngModel #date_de_la_demande="ngModel">
+              <label>Date de la demande</label>
+            </div>
+
+
+</div>
+
+
+        </form>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn">
+          Ajouter
+        </button>
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
