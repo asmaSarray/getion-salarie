@@ -18,7 +18,7 @@ let url=process.env.URL
 
 
 
-var User=mongoose.model('salarie', schemaUser)
+var User=mongoose.model('salarie', schemaUser,'user')
 
 
 exports.registre=(nom,prenom,adress,email,password)=>{
@@ -29,7 +29,7 @@ exports.registre=(nom,prenom,adress,email,password)=>{
     return User.findOne({email:email})
 }).then((doc)=>{
     if(doc){
-        mongoose.disconnect()
+
         reject('this email is exist')
     }else{
         bcrypt.hash(password,10).then((hashedPassword)=>{
@@ -41,10 +41,10 @@ exports.registre=(nom,prenom,adress,email,password)=>{
                 password:hashedPassword
                })
             user.save().then((user)=>{
-                mongoose.disconnect()
+
                 resolve(user)
             }).catch((err)=>{
-                mongoose.disconnect()
+
                 reject(err)
             })
         })
@@ -61,26 +61,28 @@ exports.login=(email,password)=>{
     })
 .then((user)=>{
     if(!user){
-        mongoose.disconnect()
+
         reject("invalid email and password")
     }else{
         bcrypt.compare(password,user.password).then((same)=>{
             if(same){
-                let token=jwt.sign({id:user._id,email:user.email,nom:user.nom},privateKey,{
+                let token=jwt.sign({id:user._id,email:user.email,nom:user.nom,prenom:user.prenom,role:"user"},privateKey,{
                     expiresIn:'3h',
                 })
-                mongoose.disconnect()
+
                 resolve(token)
                
             }else{
-                mongoose.disconnect()
+
                 reject('invalid email and password')
             }
         }).catch((err)=>{
-            mongoose.disconnect()
+
             reject(err)
         })
     }
 })
 })
 }
+module.exports.user = User;
+

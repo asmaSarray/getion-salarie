@@ -1,10 +1,13 @@
-const express = require('express')
-const router = express.Router()
+
+var router = require('express').Router()
 const Salarie = require('../models/salarie')
+const UserModel = require("../models/user");
+const adminModel = require("../models/admin");
+
 
 
 router.get('/getAll',(req,res)=>{
-    Salarie.find({},(err,liste)=> {
+    Salarie.salari.find({},(err,liste)=> {
         if(!err){
         res.json(liste)
     }else(
@@ -13,44 +16,16 @@ router.get('/getAll',(req,res)=>{
     })
 })
 
-router.post('/create', (req,res)=> {
-    Salarie.findOne({email:req.body.email}, (err,doc)=> {
-        if(err){
-            console.log(err)
-        }else{
-            if(doc){
-                console.log("email already exist")
-                res.json({message : "email already exist",
-                type:"warning",
-                title:"Warning"})
-     
-}else{
-                let newSalarie = new Salarie({
-                    nom:req.body.nom ,
-                    prenom: req.body.prenom ,
-                    adress:req.body.adress,
-                    email:req.body.email,
 
-                    
-                })
-                newSalarie.password = newSalarie.hashPassword(req.body.password)
-                newSalarie.save( (err)=> {
-                    if(!err) {
-                        console.log('Salarie was added')
-                        res.json({message : "Salarie added successfully",
-                type:"success",
-                title:"Success"})
-                    } else 
-{
-                        console.log(err)
-                    } 
-                })
-            }
-        
-    }})
+
+router.post('/registre',(req,res,next)=>{
+    Salarie.registre(req.body.nom,req.body.prenom,req.body.adress,req.body.email,req.body.password)
+        .then((user)=>res.status(200).json({user:user,msg:'added!!'}))
+        .catch((err)=>res.status(400).json({error:err}))
 })
+
 router.get('/getSalarie/:id',(req,res)=>{
-    Salarie.findOne({_id : req.params._id},(err,salarie)=> {
+    Salarie.salari.findById({_id : req.params.id},(err,salarie)=> {
         if(!err){
             salarie.password=''
         res.json(salarie)
@@ -65,7 +40,7 @@ router.delete('/delete/:id', (req,res)=> {
 
     let query = {_id: req.params.id}
 
-    Salarie.deleteOne(query, (err)=> {
+    Salarie.salari.deleteOne(query, (err)=> {
 
         if(!err) {
             res.json({message : "Salarie deleted successfully",
@@ -84,7 +59,7 @@ router.patch('/update/:id', (req,res)=> {
         adress: req.body.adress
     })
     let query = {_id :req.params.id}
-    Salarie.updateOne(query, newSalarie, (err)=> {
+    Salarie.salari.updateOne(query, newSalarie, (err)=> {
         if(!err) {
         
             res.json({message : "Salarie update successfully",
@@ -99,6 +74,11 @@ router.patch('/update/:id', (req,res)=> {
             title:"Error"})
         }
     })
+})
+router.post('/login',(req,res,next)=>{
+    Salarie.login(req.body.email,req.body.password)
+        .then((token)=>res.status(200).json({token:token}))
+        .catch((err)=>res.status(400).json({error:err}))
 })
 
 module.exports = router

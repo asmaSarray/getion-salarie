@@ -25,10 +25,10 @@ exports.registreAdmin=(nom,prenom,adress,email,password)=>{
             return Admin.findOne({email:email})
         }).then((doc)=>{
             if(doc){
-                mongoose.disconnect()
+
                 reject('this email is exist')
             }else{
-                bcrypt.hash(password,10)
+                bcrypt.hash(password,10,null)
                 .then((hashedPassword)=>{
                     let user=new Admin({
                         nom:nom,
@@ -38,19 +38,19 @@ exports.registreAdmin=(nom,prenom,adress,email,password)=>{
                         password:hashedPassword
                     })
                     user.save().then((user)=>{
-                        mongoose.disconnect()
+
                         resolve(user)
                     })
                     .catch((err)=>{
-                        mongoose.disconnect()
+
                         reject(err)
                     })
                 }).catch((err)=>{
-                    mongoose.disconnect()
+
                     reject(err)
                 })
             }
-        })
+        }).catch((err)=>err)
     })
 }
 
@@ -64,7 +64,7 @@ exports.loginadmin=(email,password)=>{
     })
 .then((user)=>{
     if(!user){
-        mongoose.disconnect()
+
         reject("invalid email and password")
     }else{
         bcrypt.compare(password,user.password).then((same)=>{
@@ -72,14 +72,14 @@ exports.loginadmin=(email,password)=>{
                 let token=jwt.sign({id:user._id,email:user.email,role:"Admin"},privateKey,{
                     expiresIn:'1h',
                 })
-                mongoose.disconnect()
+
                 resolve({token:token,role:"Admin",nom:user.nom})
             }else{
-                mongoose.disconnect()
+
                 reject('iinvalid email and password')
             }
         }).catch((err)=>{
-            mongoose.disconnect()
+
             reject(err)
         })
     }

@@ -43,9 +43,20 @@ router.post('/create', (req,res)=> {
     
 })
 router.get('/getOne/:id',(req,res)=>{
-    Conge.findOne({_id : req.params.id},(err,Conge)=> {
+    Conge.find({idSalarie : req.params.id},(err,Conge)=> {
         if(!err){
          
+        res.json(Conge)
+    }else{
+        console.log(err)
+        res.json([])
+    }
+    })
+})
+router.get('/getcongerId/:id',(req,res)=>{
+    Conge.findById({_id : req.params.id},(err,Conge)=> {
+        if(!err){
+
         res.json(Conge)
     }else{
         console.log(err)
@@ -71,9 +82,9 @@ router.delete('/delete/:id', (req,res)=> {
         }
     })
 })
-router.patch('/update/:id', (req,res)=> {
+router.put('/update/:id', (req,res)=> {
     let newConge = ({
-        reponse : req.body.reponse,
+        Reponse : req.body.Reponse,
     })
     let query = {_id :req.params.id}
     Conge.updateOne(query, newConge, (err)=> {
