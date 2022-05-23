@@ -19,7 +19,7 @@ export class LoginAdminComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.url=this.arouter.snapshot.queryParams['returnUrl'] || '/admin/'
+    this.url=this.arouter.snapshot.queryParams['returnUrl'] || '/admin/liste'
     console.log(this.url)
   }
 

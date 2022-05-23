@@ -11,12 +11,13 @@ export class AuthuserService {
 
 
   registre(body:any){
-    return this.http.post('http://localhost:5000/salarie/registre',body)
+    return this.http.post('http://localhost:5000/user/registre',body)
   }
 
   login(body:any){
-    return this.http.post('http://localhost:5000/salarie/login',body)
+    return this.http.post('http://localhost:5000/user/login',body)
   }
+
 
 
   saveToken(token:any){
@@ -37,8 +38,8 @@ export class AuthuserService {
     let decodeToken=this.helper.decodeToken(token)
 
 
-     if(decodeToken.role){
-       return false
+     if(decodeToken.role == 'user'){
+       return true
      }
 
      if(this.helper.isTokenExpired(token)){

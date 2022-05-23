@@ -1,8 +1,6 @@
 
 
-<button class="btn" data-toggle="modal" data-target="#exampleModal1">Ajoute conges</button>
-<br>
-<br>
+
 <form class="form1">
   <div class="container-fluid">
 
@@ -25,8 +23,8 @@
                             <th>type de conge</th>
                             <th>Du</th>
                             <th>Au</th>
-                            <th>date de la demande</th>
-                            <th>id</th>
+                            <th>duree</th>
+                            <th>email</th>
                             <th>Reponse</th>
                             <th>Action</th>
 
@@ -39,14 +37,13 @@
                             <td>{{item.nom}}</td>
                             <td>{{item.prenom}}</td>
                             <td>{{item.type}}</td>
-                            <td>{{item.du}}</td>
-                            <td>{{item.au}}</td>
-                            <td>{{item.date}}</td>
-                            <td>{{item.id}}</td>
+                            <td>{{item.du | date}}</td>
+                            <td>{{item.au | date}}</td>
+                            <td>{{item.duree}}</td>
+                            <td>{{item.idSalarie}}</td>
                             <td>{{item.Reponse}}</td>
                             <td>
-                                <button  data-toggle="modal" data-target="#exampleModal"
-                                (click)="getdonne(item.nom,item.prenom,item.type,item.du,item.au,item.date,item.id,item.Reponse)" >Update</button>
+                                <button  data-toggle="modal" data-target="#exampleModal" (click)="update(item._id)">Update</button>
 
                             </td>
                         </tr>
@@ -80,65 +77,18 @@
           </button>
         </div>
         <div class="modal-body">
-          <form #f="ngForm" (ngSubmit)="demande(f)">
-                <div class="form-group">
-
-                  <label for="exampleFormControlInput1">nom</label>
-                  <input type="text" class="form-control"   required name="nom"  [(ngModel)]="dataConge.nom" required name="Annee" #nom="ngModel" ngModel >
-                </div>
 
 
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">prenom</label>
-                    <input type="text" class="form-control"  [(ngModel)]="dataConge.prenom" required name="prenom" #prenom="ngModel" required ngModel>
+          <button class="btn btn-primary" data-dismiss="modal" (click)="accepter()">Accepter</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="refuser()">rejeter</button>
 
-                  </div>
-
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">type de conge</label>
-                    <input type="text" class="form-control"   [(ngModel)]="dataConge.type"  required  #type="ngModel" required name="type" ngModel>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Du</label>
-                    <input type="Date" class="form-control"   [(ngModel)]="dataConge.du"  required  #du="ngModel" required name="du" ngModel>
-                  </div>
-
-
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Au</label>
-                    <input type="date" class="form-control"  [(ngModel)]="dataConge.au"  required name="au" #au="ngModel" required  ngModel>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Date de demande </label>
-                    <input type="date" class="form-control"  [(ngModel)]="dataConge.date" required name="date_de_la_demande" #date="ngModel" required ngModel>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="exampleFormControlInput1">Reponse</label>
-                    <input type="text" class="form-control" placeholder="confirme ou refuse" [(ngModel)]="dataConge.Reponse"   name="Reponse" #Reponse="ngModel" required  ngModel>
-                  </div>
-
-                  <div class="alert alert-success" *ngIf="messageSuccess">
-                    {{messageSuccess}}
-                  </div>
-              </form>
-
-
-
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" >Reponse</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
       </div>
     </div>
   </div>
-</form>
 
 
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<!--<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -212,4 +162,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->

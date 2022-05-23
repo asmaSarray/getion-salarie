@@ -19,6 +19,7 @@ export class CongeComponent implements OnInit {
     date:'',
     idSalarie:"",
     Reponse:"",
+    _id: ""
 
 
   }
@@ -26,30 +27,11 @@ export class CongeComponent implements OnInit {
   messageSuccess=''
   constructor(private cs:CongeService) {
 
+this.getAllconge()
 
-    this.cs.getAllConge().subscribe(data=>{
-      console.log(data)
-      this.dataArray=data
-
-    })
 
   }
 
-
-  getdonne(nom:String,prenom:String,type:String,du:Date,au:Date,date:Date,id:any,Reponse:string){
-    this.messageSuccess=''
-    this.dataArray.nom=nom
-    this.dataArray.prenom=prenom
-    this.dataArray.type=type
-    this.dataArray.du=du
-    this.dataArray.au=au
-    this.dataArray.date=date
-    this.dataArray.id=id
-    this.dataConge.Reponse=Reponse
-
-    console.log(this.dataConge)
-
-  }
   demande(f:any){
     let data=f.value
     this.cs.updateconge(this.dataConge.idSalarie,data).subscribe(response=>
@@ -72,4 +54,38 @@ export class CongeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  accepter() {
+    this.dataConge.Reponse = "accepter"
+
+    this.cs.updateconge(this.dataConge._id,this.dataConge).subscribe(res=>{
+      this.getAllconge()
+
+    })
+
+  }
+
+  update(_id: any) {
+
+    this.cs.getcongebyId(_id).subscribe((data:any)=> {
+      this.dataConge = data
+
+    })
+
+  }
+  getAllconge(){
+    this.cs.getAllConge().subscribe(data=>{
+      console.log(data)
+      this.dataArray=data
+
+    })
+  }
+
+  refuser() {
+    this.dataConge.Reponse = "refuser"
+
+    this.cs.updateconge(this.dataConge._id,this.dataConge).subscribe(res=>{
+      this.getAllconge()
+
+    })
+  }
 }

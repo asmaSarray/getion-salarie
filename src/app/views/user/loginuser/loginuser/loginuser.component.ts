@@ -26,7 +26,7 @@ export class LoginuserComponent implements OnInit {
     this.aus.login(data).subscribe(data=>{
       this.datatoken=data
       this.aus.saveToken(this.datatoken.token)
-      this.route.navigate(['/salarie/+id'])
+      this.route.navigate(['salarie'])
 
 
     },(err:HttpErrorResponse)=>{
@@ -35,6 +35,6 @@ export class LoginuserComponent implements OnInit {
 
   }
   Godetails(id:any){
-    this.route.navigate(['salarie/'+id])
+    this.route.navigate(['salarie'])
   }
 }

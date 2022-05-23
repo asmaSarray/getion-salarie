@@ -23,30 +23,29 @@ export class DataService {
 
 
   getAllSalaries(){
-    return this.http.get('http://localhost:5000/salarie/getAll')
+    return this.http.get('http://localhost:5000/user/getAll')
   }
 
   addsalarie(profile:any){
 
-    return this.http.post('http://localhost:5000/salarie/create/',profile)
+    return this.http.post('http://localhost:5000/user/registre',profile)
 
   }
 
   deleteOneSalarie(id:any){
-    return this.http.delete('http://localhost:5000/salarie/delete/'+id)
+    return this.http.delete('http://localhost:5000/user/delete/'+id)
 
   }
 
 
   updateOneSalarie(id:string,newprofile:any){
 
-    return this.http.patch('http://localhost:5000/salarie/update/'+id,newprofile)
+    return this.http.patch('http://localhost:5000/user/update/'+id,newprofile)
 
   }
 
 
-  getOnesalarie(id:any){
-
-    return this.http.get("http://localhost:5000/salarie/getSalarie/"+id)
+  getuserdetail(id:any){
+    return this.http.get('http://localhost:5000/user/getUser/'+id);
   }
 }

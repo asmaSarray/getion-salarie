@@ -8,11 +8,12 @@ import { NogaurduserGuard } from './views/guard/nogaurduser.guard';
 import { UserGuard } from './views/guard/user.guard';
 
 const routes: Routes = [
-  {path:'',component:UserComponent,children:[
-    //{path:'',loadChildren:()=>import('./views/user/home/home.module').then(m=>m.HomeModule)},
-    {path:'loginuser',loadChildren:()=>import('./views/user/loginuser/loginuser.module').then(m=>m.LoginuserModule),canActivateChild:[NogaurduserGuard]},
+  {path: '', component: UserComponent, children: [
+    // {path:'',loadChildren:()=>import('./views/user/home/home.module').then(m=>m.HomeModule)},
+      // tslint:disable-next-line:max-line-length
+    {path: 'loginuser', loadChildren:()=>import('./views/user/loginuser/loginuser.module').then(m=>m.LoginuserModule),canActivateChild:[NogaurduserGuard],},
     {path:'register',loadChildren:()=>import('./views/user/registre/registre.module').then(m=>m.RegistreModule),canActivateChild:[NogaurduserGuard]},
-    {path:'salarie/:id',loadChildren:()=>import('./views/user/profile/profile.module').then(m=>m.ProfileModule),canActivateChild:[UserGuard]},
+    {path:'salarie',loadChildren:()=>import('./views/user/profile/profile.module').then(m=>m.ProfileModule),canActivateChild:[UserGuard]},
     {path:'formation',loadChildren:()=>import('./views/user/formation/formation.module').then(m=>m.FormationModule),canActivateChild:[UserGuard]},
     {path:'conge',loadChildren:()=>import('./views/user/conge/conge.module').then(m=>m.CongeModule),canActivateChild:[UserGuard]},
 

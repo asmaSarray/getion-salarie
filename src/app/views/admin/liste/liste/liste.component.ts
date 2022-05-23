@@ -23,24 +23,22 @@ export class ListeComponent implements OnInit {
   messageSuccess=''
   constructor(private ds:DataService,private route:Router,private http:HttpClient) {
 
-    this.ds.getAllSalaries().subscribe(data=>{
-      console.log(data)
-      this.dataArray=data
-    })
+
 
 
 
    }
 
   ngOnInit(): void {
+    this.getallsalaries()
   }
 
 
   delete(id:any,i:number){
 
     this.ds.deleteOneSalarie(id).subscribe(response=>{
-      console.log(response)
-       this.dataArray.splice(i,1)
+      this.getallsalaries()
+      this.dataArray.splice(i,1)
 
     })
 
@@ -71,6 +69,7 @@ export class ListeComponent implements OnInit {
 
 
         this.messageSuccess=`this salarie ${this.dataArray[indexId].nom} is updated`
+        this.getallsalaries()
 
 
       },(err:HttpErrorResponse)=>{
@@ -95,6 +94,12 @@ export class ListeComponent implements OnInit {
 
   details(id:any){
     this.route.navigate(['/admin/salariedetails/'+id])
+  }
+  getallsalaries(){
+    this.ds.getAllSalaries().subscribe(data=>{
+      console.log(data)
+      this.dataArray=data
+    })
   }
 
 

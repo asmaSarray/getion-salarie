@@ -1,6 +1,7 @@
 import { FormationService } from './../../../service/formation.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-formation',
@@ -8,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./formation.component.css']
 })
 export class FormationComponent implements OnInit {
+  helper=new JwtHelperService()
   messageSuccess:any
   messageError:any
   constructor(private fs:FormationService) { }
@@ -19,10 +21,12 @@ export class FormationComponent implements OnInit {
     nbre:"",
     centre:'',
     lieu:'',
-    idSalarie:"",
+    email:"",
     Reponse:"",
   }
-  getdonne(titre:String,annee:String,date:String,nbre:Date,centre:Date,lieu:Number,id:any,Reponse:string){
+  token:any=localStorage.getItem('token')
+  decodeToken=this.helper.decodeToken(this.token)
+  /*getdonne(titre:String,annee:String,date:String,nbre:Date,centre:Date,lieu:Number,id:any,Reponse:string){
     this.messageSuccess=''
     this.dataArray.titre=titre
     this.dataArray.annee=annee
@@ -35,28 +39,36 @@ export class FormationComponent implements OnInit {
 
     console.log(this.dataformation)
 
-  }
+  }*/
   ngOnInit(): void {
+    this.getAllformation()
   }
 
   formation(form:any){
-    let data=form.value
-console.log(data)
-    this.fs.postFormation(data).subscribe(data=>{
-     console.log(data)
-     this.messageSuccess="la demande is envoyer"
+
+
+    this.dataformation.email = this.decodeToken.email
+
+console.log(this.dataformation)
+    this.fs.postFormation(this.dataformation).subscribe(data=>{
+     this.messageSuccess="la demande est envoyer"
+      this.getAllformation()
     },(err:HttpErrorResponse)=>{
       console.log(err.message)
 
     })
 
   }
-  delete(id:any,i:number){
+  delete(id:any){
 
     this.fs.deleteFormation(id).subscribe(response=>{
-      console.log(response)
-
-
+      this.getAllformation()
     })
+}
+getAllformation(){
+  this.fs.getownformation(this.decodeToken.email).subscribe(response => {
+    this.dataArray = response;
+    console.log(this.dataArray)
+  })
 }
 }

@@ -23,7 +23,7 @@ export class DetailsComponent implements OnInit {
   messageErr=''
   constructor(private route:ActivatedRoute,private ds:DataService) {
     this.route.params.subscribe(params=>this.id=params.id)
-    this.ds.getOnesalarie(this.id).subscribe(response=>this.dataObject=response,(err:HttpErrorResponse)=>{
+    this.ds.getuserdetail(this.id).subscribe(response=>this.dataObject=response,(err:HttpErrorResponse)=>{
         console.log(err)
       this.messageErr="We dont't found this student in our database"})
    }

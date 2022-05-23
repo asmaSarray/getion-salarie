@@ -2,7 +2,7 @@
   <a href="" *ngIf="!au.userLoggedIn()">Home</a>
   <a href="/loginuser"  *ngIf="!au.userLoggedIn()">Log In</a>
   <a href="/register" *ngIf="!au.userLoggedIn()"> Register</a>
-  <a href="/salarie/:id"*ngIf="au.userLoggedIn()">Profile</a>
+  <a href="/salarie" *ngIf="au.userLoggedIn()">Profile</a>
   <a href="/formation" *ngIf="au.userLoggedIn()">formation</a>
   <a href="/conge" *ngIf="au.userLoggedIn()">conge</a>
 
@@ -12,5 +12,4 @@
 
 <div class="content">
   <router-outlet></router-outlet>
-
 </div>
